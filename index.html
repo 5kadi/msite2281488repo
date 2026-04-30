@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Техно-модуль — IT-профориентация в игре</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        /* Тёмная тема (по умолчанию) */
+        body.dark {
+            background: #0B1120;
+            color: #E2E8F0;
+        }
+        body.light {
+            background: #F1F5F9;
+            color: #0F172A;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Шапка */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-bottom: 1px solid;
+        }
+        body.dark .navbar { border-bottom-color: #1E293B; }
+        body.light .navbar { border-bottom-color: #CBD5E1; }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #BEF264, #38BDF8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        body.dark .nav-links a { color: #CBD5E1; }
+        body.light .nav-links a { color: #334155; }
+        .nav-links a:hover { color: #3B82F6; }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid;
+            padding: 6px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        body.dark .theme-toggle {
+            border-color: #475569;
+            color: #FACC15;
+        }
+        body.light .theme-toggle {
+            border-color: #94A3B8;
+            color: #3B82F6;
+        }
+
+        .btn-outline, .btn-primary {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3B82F6;
+            color: #3B82F6;
+        }
+        .btn-outline:hover {
+            background: #3B82F6;
+            color: white;
+        }
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: scale(1.02);
+        }
+
+        section {
+            padding: 70px 0;
+            border-bottom: 1px solid;
+        }
+        body.dark section { border-bottom-color: #1E293B; }
+        body.light section { border-bottom-color: #CBD5E1; }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+        body.dark .badge { background: #1E293B; color: #94A3B8; }
+        body.light .badge { background: #E2E8F0; color: #475569; }
+
+        h1 {
+            font-size: 3.2rem;
+            background: linear-gradient(135deg, #BEF264, #38BDF8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .card {
+            border-radius: 28px;
+            padding: 28px;
+            transition: 0.2s;
+        }
+        body.dark .card {
+            background: #0F172A;
+            border: 1px solid #1E293B;
+        }
+        body.light .card {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .card:hover {
+            border-color: #3B82F6;
+            transform: translateY(-4px);
+        }
+
+        /* Тренажёр */
+        .playground {
+            background: #1E293B;
+            border-radius: 28px;
+            padding: 28px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        body.light .playground {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+        }
+        #targetText {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            background: #0F172A;
+            border-radius: 24px;
+            transition: color 0.1s;
+        }
+        body.light #targetText {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+        }
+        .color-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .color-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 60px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .color-btn:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .skill-tree {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+        .skill-badge {
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 500;
+            border-left: 3px solid #38BDF8;
+        }
+        body.dark .skill-badge { background: #1E293B; }
+        body.light .skill-badge { background: #E2E8F0; color: #0F172A; }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: space-between;
+            margin-top: 32px;
+        }
+        .step {
+            flex: 1;
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        body.dark .step { background: #0F172A; }
+        body.light .step { background: #FFFFFF; border: 1px solid #CBD5E1; }
+
+        input {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 48px;
+            border: 1px solid #334155;
+            background: #0F172A;
+            color: white;
+            font-size: 1rem;
+        }
+        body.light input {
+            background: white;
+            color: #0F172A;
+            border-color: #CBD5E1;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+        }
+        body.dark footer { color: #5B6E8C; }
+        body.light footer { color: #64748B; }
+
+        @media (max-width: 800px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .navbar { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body class="dark">
+<div class="container">
+    <!-- Шапка -->
+    <div class="navbar">
+        <div class="logo">⚡ ТЕХНО-МОДУЛЬ</div>
+        <div class="nav-links">
+            <a href="#about">О нас</a>
+            <a href="#howitworks">Механика</a>
+            <a href="#skills">Навыки</a>
+            <a href="#prototype">Прототип</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle">🌙 Светлая тема</button>
+    </div>
+
+    <!-- Герой -->
+    <section>
+        <span class="badge">🚀 Duolingo-формат для IT</span>
+        <h1>Техно-модуль:<br>профориентация и навыки в игре</h1>
+        <p style="font-size: 1.2rem; max-width: 700px; margin-bottom: 32px;">Как Duolingo, только для будущих айтишников. 5 минут в день — и ты знаешь, кем хочешь стать.</p>
+        <button class="btn-primary" id="ctaBtn">🏁 Начать карьеру в IT →</button>
+    </section>
+
+    <!-- ТРЕНАЖЁР (живой) -->
+    <section>
+        <span class="badge">🎮 Попробуй прямо сейчас</span>
+        <h2>Измени цвет текста — первый шаг в IT</h2>
+        <div class="playground">
+            <div id="targetText">Привет, я твой первый проект!</div>
+            <div class="color-buttons">
+                <div class="color-btn" style="background: #EF4444;" data-color="#EF4444"></div>
+                <div class="color-btn" style="background: #3B82F6;" data-color="#3B82F6"></div>
+                <div class="color-btn" style="background: #10B981;" data-color="#10B981"></div>
+                <div class="color-btn" style="background: #F59E0B;" data-color="#F59E0B"></div>
+                <div class="color-btn" style="background: #A855F7;" data-color="#A855F7"></div>
+            </div>
+            <p style="margin-top: 16px;">✅ Нажми на любой цвет — текст изменится. Ты только что написал свой первый код (через JavaScript). Так работают фронтенд-разработчики!</p>
+        </div>
+    </section>
+
+    <!-- Проблема → Решение -->
+    <section id="about">
+        <div class="grid-2">
+            <div class="card"><h3>😕 Что мешает подросткам?</h3>
+                <ul style="margin-top: 16px; margin-left: 20px; line-height: 1.6;">
+                    <li>Не знают, с какого языка стартовать</li>
+                    <li>Боятся сложного кода</li>
+                    <li>Быстро теряют мотивацию</li>
+                    <li>Не видят связи с реальными профессиями</li>
+                </ul>
+            </div>
+            <div class="card"><h3>⚡ Как помогает Техно-модуль</h3>
+                <ul style="margin-top: 16px; margin-left: 20px; line-height: 1.6;">
+                    <li>Стартовая диагностика «Твой IT-тип»</li>
+                    <li>Первые задания без кода (алгоритмы, поиск багов)</li>
+                    <li>Лиги, дуэли, серии — как в Duolingo</li>
+                    <li>Карточки живых специалистов</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Механика -->
+    <section id="howitworks">
+        <span class="badge">🎮 Геймификация</span>
+        <h2>Учишься, играя. Сражаешься в лигах</h2>
+        <div class="steps">
+            <div class="step"><div class="step-icon">🧠</div><strong>1. Диагностика</strong><br>Узнай свой стиль</div>
+            <div class="step"><div class="step-icon">🌳</div><strong>2. Дерево навыков</strong><br>Выбери ветку</div>
+            <div class="step"><div class="step-icon">⚔️</div><strong>3. Дуэли и лиги</strong><br>Соревнуйся</div>
+            <div class="step"><div class="step-icon">🏆</div><strong>4. Награды</strong><br>Открывай профессии</div>
+        </div>
+    </section>
+
+    <!-- Дерево навыков -->
+    <section id="skills">
+        <span class="badge">🌱 Карта развития</span>
+        <h2>Дерево IT-навыков</h2>
+        <div class="skill-tree">
+            <span class="skill-badge">🌐 Веб-разработка</span>
+            <span class="skill-badge">📊 Аналитика данных</span>
+            <span class="skill-badge">🔐 Кибербезопасность</span>
+            <span class="skill-badge">🎮 GameDev</span>
+            <span class="skill-badge">🎨 UX/UI Дизайн</span>
+        </div>
+    </section>
+
+    <!-- Профориентация -->
+    <section>
+        <div class="grid-2">
+            <div class="card"><h3>🧭 Профориентация в каждом модуле</h3><p>После каждых 5 заданий — карточка профессии. Видео от молодого специалиста + кнопка «Хочу попробовать».</p></div>
+            <div class="card"><h3>🗺️ Навигатор возможностей</h3><p>Хакатоны, стажировки, курсы + памятка для родителей.</p></div>
+        </div>
+    </section>
+
+    <!-- MVP -->
+    <section id="prototype">
+        <span class="badge">⚙️ MVP — живой прототип</span>
+        <h2>Что уже работает</h2>
+        <div class="grid-2">
+            <div><ul style="line-height: 1.8;"><li>🎨 Интерактивная Figma</li><li>💻 Тренажёр выше (цвет текста)</li><li>📱 Адаптивный дизайн</li></ul><button class="btn-primary" id="demoProtoBtn" style="margin-top: 20px;">🎬 Подробнее о демо</button></div>
+            <div class="card" style="text-align: center;"><span style="font-size: 3rem;">🖥️</span><p>Редактор кода в браузере. Никаких установок.</p></div>
+        </div>
+    </section>
+
+    <!-- Подписка -->
+    <section>
+        <div style="border-radius: 2rem; padding: 48px 32px; text-align: center;" class="card">
+            <h2>Не бойся кода — начни с игры</h2>
+            <p style="margin-bottom: 24px;">Стань первым, кто получит доступ к Техно-модулю</p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
+                <input type="email" placeholder="Твой e-mail" id="emailInput" style="flex:1">
+                <button class="btn-primary" id="subscribeBtn">Записаться →</button>
+            </div>
+        </div>
+    </section>
+    <footer>© 2025 Техно-модуль — ИТ-профориентация нового поколения</footer>
+</div>
+
+<script>
+    // ТРЕНАЖЁР: изменение цвета текста
+    const targetText = document.getElementById('targetText');
+    const colorBtns = document.querySelectorAll('.color-btn');
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const color = btn.getAttribute('data-color');
+            targetText.style.color = color;
+        });
+    });
+
+    // Переключатель темы
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    themeToggle.addEventListener('click', () => {
+        if(body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            body.classList.add('light');
+            themeToggle.textContent = '☀️ Тёмная тема';
+        } else {
+            body.classList.remove('light');
+            body.classList.add('dark');
+            themeToggle.textContent = '🌙 Светлая тема';
+        }
+    });
+
+    // Кнопки демо
+    document.getElementById('ctaBtn')?.addEventListener('click', () => {
+        document.getElementById('emailInput')?.scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById('demoProtoBtn')?.addEventListener('click', () => {
+        alert('✨ Демо: живой тренажёр выше + Figma с диагностикой. В полной версии — десятки таких заданий!');
+    });
+    document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+        const email = document.getElementById('emailInput')?.value;
+        if(email && email.includes('@')) {
+            alert(`Спасибо, ${email}! Жди приглашение на запуск.`);
+        } else {
+            alert('Введите корректный e-mail');
+        }
+    });
+</script>
+</body>
+</html>
