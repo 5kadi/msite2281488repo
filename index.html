@@ -310,13 +310,13 @@
         </div>
     </div>
 
-    <!-- Слайд 2: О команде проекта (С ФОТО) -->
+    <!-- Слайд 2: О команде проекта (С ВАШИМ ФОТО ПО ССЫЛКЕ) -->
     <div class="slide" data-slide="1">
         <div class="slide-content">
             <span class="badge">👤 О команде проекта</span>
             <div class="team-half">
                 <div class="team-photo">
-                    <img class="founder-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23667EEA'/%3E%3Ccircle cx='100' cy='80' r='40' fill='%23BEF264'/%3E%3Ccircle cx='100' cy='160' r='50' fill='%2338BDF8'/%3E%3Ctext x='100' y='170' text-anchor='middle' fill='white' font-size='40' dy='.3em'%3E🏀%3C/text%3E%3C/svg%3E" alt="Основатель">
+                    <img class="founder-image" src="https://sun9-63.userapi.com/s/v1/ig2/yyCL_DAiIw4Z1qd9rA1nACJ_funo-5Wra-jXM5GiKRi5e4BLCDB4MwxCUsjeazQ-oze4T2oHUYfg2G5Vp-j5St9z.jpg?quality=95&as=32x47,48x71,72x106,108x159,160x236,240x354,360x531,480x707,540x796,591x871&from=bu&u=_S0z5RW3hkFrbRQn6ZJvwEOxjgUVwMdLq13UqVXh7S0&cs=591x0" alt="Основатель">
                     <p style="margin-top: 15px;"><strong>Основатель проекта</strong></p>
                     <p style="font-size: 12px; color:#94A3B8;">Фото основателя</p>
                 </div>
@@ -381,7 +381,7 @@
                     <p style="color:#94A3B8;">С видеоуроками и понятными объяснениями</p>
                 </div>
                 <div class="stat-card">
-                    <div class="feature-icon">🎮</div>
+                <div class="feature-icon">🎮</div>
                     <h3>Геймификация</h3>
                     <p style="color:#94A3B8;">XP, уровни, лиги, достижения</p>
                 </div>
@@ -639,8 +639,7 @@
             slide.classList.toggle('active', index === currentIndex);
         });
         const progress = ((currentIndex + 1) / totalSlides) * 100;
-        progressBar.style.width = `${progress}%`
-        slideCounter.innerText = `${currentIndex + 1} / ${totalSlides}`
+        progressBar.style.width = `${progress}%`;
     }
 
     function nextSlide() {
@@ -658,8 +657,7 @@
     }
 
     document.getElementById('nextBtn').addEventListener('click', nextSlide);
-    document.getElementById('prevBtn').
-    addEventListener('click', prevSlide);
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
     
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') nextSlide();
